@@ -49,14 +49,14 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- H2 + Hibernate/Panache -->
+        <!-- PostgreSQL + Hibernate/Panache -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-orm-panache</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-h2</artifactId>
+            <artifactId>quarkus-jdbc-postgresql</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
