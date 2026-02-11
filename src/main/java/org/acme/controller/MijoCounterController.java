@@ -6,6 +6,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.MijoCounterDTO;
+import org.acme.mapper.MijoCounterMapper;
 import org.acme.service.MijoCounterService;
 
 import java.util.Optional;
@@ -22,8 +23,7 @@ public class MijoCounterController {
     @RolesAllowed({"user", "admin"})
     public final Response save(MijoCounterDTO dto) {
         try {
-            mijoCounterService.save(dto);
-            return Response.ok().build();
+            return Response.ok(MijoCounterMapper.toDTO(mijoCounterService.save(dto))).build();
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             return Response.status(Response.Status.PRECONDITION_FAILED.getStatusCode(), e.getMessage()).build();

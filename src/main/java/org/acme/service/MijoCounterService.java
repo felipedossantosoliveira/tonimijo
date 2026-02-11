@@ -15,10 +15,10 @@ public class MijoCounterService {
     @Inject
     MijoCounterRepository mijoCounterRepository;
 
-    public void save(MijoCounterDTO dto) {
+    public MijoCounter save(MijoCounterDTO dto) {
         MijoCounter counter = MijoCounterMapper.toEntity(dto);
         boolean hasCount = MijoCounterMapper.hasCount(dto);
-        this.mijoCounterRepository.save(counter, hasCount);
+        return this.mijoCounterRepository.save(counter, hasCount);
     }
 
     public Optional<MijoCounterDTO> findByName(String name) {

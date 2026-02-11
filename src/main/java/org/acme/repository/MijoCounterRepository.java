@@ -11,19 +11,22 @@ import java.util.Optional;
 public class MijoCounterRepository implements PanacheRepository<MijoCounter> {
 
     @Transactional
-    public final void save(final MijoCounter counter, final boolean hasCount) {
+    public final MijoCounter save(final MijoCounter counter, final boolean hasCount) {
         Optional<MijoCounter> optional = this.findByName(counter.name);
         if (optional.isPresent()) {
             if (hasCount) {
                 optional.get().count = counter.count;
+                return optional.get();
             } else {
                 optional.get().count += 1;
+                return optional.get();
             }
         } else {
             if (!hasCount) {
                 counter.count = 1;
             }
             this.persist(counter);
+            return counter;
         }
     }
 
