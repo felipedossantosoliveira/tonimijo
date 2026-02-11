@@ -1,11 +1,18 @@
 package org.acme.model;
 
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-@MongoEntity(collection = "mijocounter")
-public class MijoCounter extends PanacheMongoEntity {
+@Entity
+@Table(name = "mijo_counter")
+public class MijoCounter extends PanacheEntity {
+    
+    @Column(name = "count_value")
     public int count;
+    
+    @Column(unique = true)
     public String name;
 
     public MijoCounter() { }

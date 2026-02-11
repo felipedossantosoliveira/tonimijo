@@ -1,27 +1,25 @@
 package org.acme.repository;
 
-import io.quarkus.mongodb.panache.PanacheMongoRepository;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import org.acme.model.MijoCounter;
 
 import java.util.Optional;
 
 @ApplicationScoped
-public class MijoCounterRepository implements PanacheMongoRepository<MijoCounter> {
+public class MijoCounterRepository implements PanacheRepository<MijoCounter> {
 
+    @Transactional
     public final void save(final MijoCounter counter, final boolean hasCount) {
         Optional<MijoCounter> optional = this.findByName(counter.name);
         if (optional.isPresent()) {
             if (hasCount) {
-                // Se count foi especificado no DTO, substitui o valor
                 optional.get().count = counter.count;
             } else {
-                // Se count não foi especificado, incrementa
                 optional.get().count += 1;
             }
-            this.update(optional.get());
         } else {
-            // Novo registro: se não tem count, começa com 1
             if (!hasCount) {
                 counter.count = 1;
             }
