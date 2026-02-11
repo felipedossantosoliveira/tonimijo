@@ -7,6 +7,8 @@ import org.acme.mapper.MijoCounterMapper;
 import org.acme.model.MijoCounter;
 import org.acme.repository.MijoCounterRepository;
 
+import java.util.Optional;
+
 @ApplicationScoped
 public class MijoCounterService {
 
@@ -17,5 +19,9 @@ public class MijoCounterService {
         MijoCounter counter = MijoCounterMapper.toEntity(dto);
         boolean hasCount = MijoCounterMapper.hasCount(dto);
         this.mijoCounterRepository.save(counter, hasCount);
+    }
+
+    public Optional<MijoCounterDTO> findByName(String name) {
+        return this.mijoCounterRepository.findByName(name).map(MijoCounterMapper::toDTO);
     }
 }
